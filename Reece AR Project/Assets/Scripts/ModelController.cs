@@ -8,6 +8,7 @@ public class ModelController : MonoBehaviour, IBaseScript {
 
 	// Use this for initialization
 	void Start () {
+        _spawnedObjects = new List<GameObject>();
         AddFurnitureToPlane();
 	}
 	
@@ -36,8 +37,9 @@ public class ModelController : MonoBehaviour, IBaseScript {
         */
 
         GameObject x = new GameObject("TestObjFurniture");
-        _spawnedObjects.Add(x);
         x.transform.SetParent(_groundPlane);
+        _spawnedObjects.Add(x);
+        
 
     }
 }
