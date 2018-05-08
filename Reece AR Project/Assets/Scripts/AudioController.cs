@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioController : MonoBehaviour {
+public class AudioController : MonoBehaviour, IBaseScript {
     protected Queue<AudioClip> _audioQueue;
     public string _audioObjectSuffix = "_AudioObject";
 
