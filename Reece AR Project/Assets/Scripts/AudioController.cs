@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioController : MonoBehaviour, IBaseScript {
-    protected Queue<AudioClip> _audioQueue;
+    public Queue<AudioClip> _audioQueue;
     public string _audioObjectSuffix = "_AudioObject";
 
     void Start()
@@ -21,6 +21,7 @@ public class AudioController : MonoBehaviour, IBaseScript {
 
     public void AddToQueue(AudioClip _audioClip)
     {
+        Debug.Log("Sucessfilly called add to queue");
         _audioQueue.Enqueue(_audioClip);
     }
 
@@ -39,7 +40,7 @@ public class AudioController : MonoBehaviour, IBaseScript {
         AudioSource _tempSource = _tempObj.AddComponent<AudioSource>();
         _tempSource.clip = _audioClip;
         _tempSource.Play();
-        Destroy(gameObject, _audioClip.length);
+        Destroy(_tempObj, _audioClip.length);
         yield return null;        
     } 
 	
