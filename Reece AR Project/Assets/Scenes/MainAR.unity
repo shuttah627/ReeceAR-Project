@@ -150,9 +150,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 13924385}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f11d4eadf9d2f374db23f196b3f0bda0, type: 3}
+  m_Script: {fileID: 11500000, guid: 0f3a10d28b58f1345bb9ea44d06a41d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioObjectSuffix: _AudioObject
 --- !u!1 &32457494
 GameObject:
   m_ObjectHideFlags: 0
@@ -487,7 +488,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 749692651}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 338bf9895705514488608dc1070426fa, type: 3}
+  m_Script: {fileID: 11500000, guid: 37d68716a64314d4c8e6813082837b0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _groundPlane: {fileID: 442977814}

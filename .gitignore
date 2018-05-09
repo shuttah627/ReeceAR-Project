@@ -32,3 +32,6 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+Reece AR Project/Packages/manifest.json
+Reece AR Project/Assets/Scripts/New Custom Render Texture.asset
+Reece AR Project/ProjectSettings/PresetManager.asset
