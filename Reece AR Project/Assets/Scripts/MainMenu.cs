@@ -4,6 +4,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour {
+    // Base Controller (for easy access to audio controller etc.)
+    public GameObject _baseController;
+
+    // Sound effects
+    public AudioClip _acceptPop;
+    public AudioClip _backPop;
 
     // Open default scene
     public void OpenMainAR()
@@ -27,5 +33,15 @@ public class MainMenu : MonoBehaviour {
     public void QuitApplication()
     {
         Application.Quit();
+    }
+
+    public void QueueAcceptSound()
+    {
+        _baseController.GetComponent<BaseController>()._audioController.GetComponent<AudioController>().AddToQueue(_acceptPop);
+    }
+
+    public void QueueBackSound()
+    {
+        _baseController.GetComponent<BaseController>()._audioController.GetComponent<AudioController>().AddToQueue(_backPop);
     }
 }

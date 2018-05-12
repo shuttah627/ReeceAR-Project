@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -552,7 +552,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &557377981
 GameObject:
@@ -1009,6 +1009,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1007817025}
+        m_MethodName: QueueAcceptSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &644844252
@@ -1177,6 +1188,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 1007817025}
+        m_MethodName: QueueBackSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &704318724
@@ -1212,6 +1234,59 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 704318721}
+--- !u!1001 &706891022
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4013975308625308, guid: ab8b078e8b0c430449afd2430e92d967, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 1.159705
+      objectReference: {fileID: 0}
+    - target: {fileID: 4013975308625308, guid: ab8b078e8b0c430449afd2430e92d967, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -0.61685884
+      objectReference: {fileID: 0}
+    - target: {fileID: 4013975308625308, guid: ab8b078e8b0c430449afd2430e92d967, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -3.2893345
+      objectReference: {fileID: 0}
+    - target: {fileID: 4013975308625308, guid: ab8b078e8b0c430449afd2430e92d967, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4013975308625308, guid: ab8b078e8b0c430449afd2430e92d967, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4013975308625308, guid: ab8b078e8b0c430449afd2430e92d967, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4013975308625308, guid: ab8b078e8b0c430449afd2430e92d967, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4013975308625308, guid: ab8b078e8b0c430449afd2430e92d967, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114703107140440564, guid: ab8b078e8b0c430449afd2430e92d967,
+        type: 2}
+      propertyPath: _audioController
+      value: 
+      objectReference: {fileID: 1850934191}
+    - target: {fileID: 114703107140440564, guid: ab8b078e8b0c430449afd2430e92d967,
+        type: 2}
+      propertyPath: _modelController
+      value: 
+      objectReference: {fileID: 1912985032541356, guid: 137724d6bff3b1b438002811a219a58f,
+        type: 2}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: ab8b078e8b0c430449afd2430e92d967, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &773260907
 GameObject:
   m_ObjectHideFlags: 0
@@ -1491,6 +1566,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 1007817025}
+        m_MethodName: QueueAcceptSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &881964881
@@ -1526,6 +1612,11 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 881964878}
+--- !u!1 &945170504 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1518887719810460, guid: ab8b078e8b0c430449afd2430e92d967,
+    type: 2}
+  m_PrefabInternal: {fileID: 706891022}
 --- !u!1 &1007817020
 GameObject:
   m_ObjectHideFlags: 0
@@ -1620,7 +1711,7 @@ RectTransform:
   - {fileID: 862555307}
   - {fileID: 1805294368}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1638,6 +1729,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bd996933fec33343bf47408bd71d413, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _baseController: {fileID: 945170504}
+  _acceptPop: {fileID: 8300000, guid: ee5702669bfbf964c80fd4d6081015de, type: 3}
+  _backPop: {fileID: 8300000, guid: 0efd3955bcfc8a8468abd5703a823d9a, type: 3}
 --- !u!1 &1062221534
 GameObject:
   m_ObjectHideFlags: 0
@@ -1727,6 +1821,17 @@ MonoBehaviour:
       - m_Target: {fileID: 1547523433}
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1007817025}
+        m_MethodName: QueueBackSound
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1916,6 +2021,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1007817025}
+        m_MethodName: QueueAcceptSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1157981159
@@ -2046,6 +2162,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1007817025}
         m_MethodName: OpenMainAR
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1007817025}
+        m_MethodName: QueueAcceptSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2441,6 +2568,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1007817025}
+        m_MethodName: QueueAcceptSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1589529060
@@ -2539,7 +2677,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1626687460
 GameObject:
@@ -2690,6 +2828,17 @@ MonoBehaviour:
       - m_Target: {fileID: 1547523433}
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1007817025}
+        m_MethodName: QueueAcceptSound
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2958,7 +3107,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1805294367
 GameObject:
@@ -3151,6 +3300,11 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1847641056}
+--- !u!1 &1850934191 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1649506807994634, guid: 252e36fac03bafd4d975dd140e69b44a,
+    type: 2}
+  m_PrefabInternal: {fileID: 1984913431}
 --- !u!1 &1902698479
 GameObject:
   m_ObjectHideFlags: 0
@@ -3442,6 +3596,48 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1953830165}
+--- !u!1001 &1984913431
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4514693246999868, guid: 252e36fac03bafd4d975dd140e69b44a, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 1.159705
+      objectReference: {fileID: 0}
+    - target: {fileID: 4514693246999868, guid: 252e36fac03bafd4d975dd140e69b44a, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -0.61685884
+      objectReference: {fileID: 0}
+    - target: {fileID: 4514693246999868, guid: 252e36fac03bafd4d975dd140e69b44a, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -3.2893345
+      objectReference: {fileID: 0}
+    - target: {fileID: 4514693246999868, guid: 252e36fac03bafd4d975dd140e69b44a, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4514693246999868, guid: 252e36fac03bafd4d975dd140e69b44a, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4514693246999868, guid: 252e36fac03bafd4d975dd140e69b44a, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4514693246999868, guid: 252e36fac03bafd4d975dd140e69b44a, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4514693246999868, guid: 252e36fac03bafd4d975dd140e69b44a, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 252e36fac03bafd4d975dd140e69b44a, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &2019081523
 GameObject:
   m_ObjectHideFlags: 0
@@ -3957,6 +4153,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1007817025}
         m_MethodName: LoadSaved
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1007817025}
+        m_MethodName: QueueAcceptSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
