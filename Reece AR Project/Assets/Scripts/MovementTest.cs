@@ -42,4 +42,17 @@ public class MovementTest : MonoBehaviour {
             _toilet.Rotate(new Vector3(0f, 1f, 0f), 10f);
         }
     }
+
+    //functions to play with
+    public void RotateRight()
+    {
+        Debug.Log("rotated the game object a bit");
+        _toilet.Rotate(new Vector3(0f, 1f, 0f), 10f);
+    }
+    public void RotateLeft()
+    {
+        Debug.Log("rotated the game object a bit");
+        _toilet.Rotate(new Vector3(0f, -1f, 0f), 10f);
+    }
+
 }
