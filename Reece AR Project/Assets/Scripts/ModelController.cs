@@ -9,7 +9,7 @@ public class ModelController : MonoBehaviour, IBaseScript {
 	// Use this for initialization
 	void Start () {
         _spawnedObjects = new List<GameObject>();
-        AddFurnitureToPlane();
+        //AddFurnitureToPlane();
 	}
 	
 	// Update is called once per frame
@@ -36,7 +36,7 @@ public class ModelController : MonoBehaviour, IBaseScript {
         }
         */
 
-        GameObject x = new GameObject("TestObjFurniture");
+        GameObject x = new GameObject("DefualtModelObject");
         x.transform.SetParent(_groundPlane);
         _spawnedObjects.Add(x);
         
