@@ -5,17 +5,23 @@ using UnityEngine;
 public class ModelController : MonoBehaviour, IBaseScript {
     public Transform _groundPlane;
     private List<GameObject> _spawnedObjects;
+    public GameObject _toiletest;
+    public Transform _planeindicator;
 
 	// Use this for initialization
 	void Start () {
         _spawnedObjects = new List<GameObject>();
-        //AddFurnitureToPlane();
+        AddFurnitureToPlane();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    public void MoveFurniture()
+    {
+        foreach (GameObject x in _spawnedObjects)
+        {
+            x.GetComponent<Transform>().localPosition = GameObject.Find("DefaultPlaneIndicator(Clone)").GetComponent<Transform>().localPosition;
+        }
+        
+    }
 
     public void AddFurnitureToPlane()
     {
@@ -36,7 +42,7 @@ public class ModelController : MonoBehaviour, IBaseScript {
         }
         */
 
-        GameObject x = new GameObject("DefualtModelObject");
+        GameObject x = Instantiate(_toiletest, transform.position, transform.rotation);
         x.transform.SetParent(_groundPlane);
         _spawnedObjects.Add(x);
         
