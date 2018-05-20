@@ -14,13 +14,13 @@ public class MainMenu : MonoBehaviour {
     // Open default scene
     public void OpenMainAR()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("MainAR");
     }
 
     // Load selected scene
     public void LoadSaved(/*pass through selected scene*/)
     {
-        SceneManager.LoadScene(0/*passed scene*/);                  // TEMP - should be loading a saved file
+        SceneManager.LoadScene("MainAR"/*passed scene*/);                  // TEMP - should be loading a saved file
     }
 
     // Back
