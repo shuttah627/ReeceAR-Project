@@ -12,53 +12,56 @@ public class ModelController : MonoBehaviour, IBaseScript {
 
     public float _rotateAmount = 20f;
 
+    public float _ButtonPressSelectDisable;
+
     private GameObject _selectedObject;
     private List<GameObject> _spawnedObjects;
     private bool _shouldBreak;
 
-    void Start () {
+    void Start() {
         _spawnedObjects = new List<GameObject>();
         AddFurnitureToPlane();
-	}
-    /*
+    }
+
     void Update()
     {
-        if (Input.touchCount > 0)
+        //decrease timer
+        _ButtonPressSelectDisable -= Time.deltaTime;
+
+
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && _ButtonPressSelectDisable <= 0)
         {
             Debug.Log("We touched the screen!");
-            RaycastHit hit;
-            Ray x = _arCamera.ScreenPointToRay(Input.GetTouch(0).position);
-            if (Physics.Raycast(x, out hit)) {
-                Debug.Log(hit.transform.parent.name);
-            }
+            SelectObjectCheck();
         }
-    }*/
+    }
 
     public void MoveFurniture(string moveType)
     {
         Vector3 _tempVec = new Vector3(0, 0, 0);
-        foreach (GameObject x in _spawnedObjects)
+        // foreach (GameObject x in _spawnedObjects)
+        // {
+        switch (moveType)
         {
-            switch (moveType)
-            {
-                case "point":
-                    x.GetComponent<Transform>().localPosition = GameObject.Find("DefaultPlaneIndicator(Clone)").GetComponent<Transform>().localPosition;
-                    break;
-                case "forward":
-                    _tempVec = new Vector3(0f, 0f, -_movementAmount);
-                    break;
-                case "back":
-                    _tempVec = new Vector3(0f, 0f, _movementAmount);
-                    break;
-                case "left":
-                    _tempVec = new Vector3(-_movementAmount, 0f, 0f);
-                    break;
-                case "right":
-                    _tempVec = new Vector3(_movementAmount, 0f, 0f);
-                    break;
-            }
-            x.GetComponent<Transform>().localPosition += _tempVec;
+
+            case "point":
+                _selectedObject.GetComponent<Transform>().localPosition = GameObject.Find("DefaultPlaneIndicator(Clone)").GetComponent<Transform>().localPosition;
+                break;
+            case "forward":
+                _tempVec = new Vector3(0f, 0f, -_movementAmount);
+                break;
+            case "back":
+                _tempVec = new Vector3(0f, 0f, _movementAmount);
+                break;
+            case "left":
+                _tempVec = new Vector3(-_movementAmount, 0f, 0f);
+                break;
+            case "right":
+                _tempVec = new Vector3(_movementAmount, 0f, 0f);
+                break;
         }
+        _selectedObject.GetComponent<Transform>().localPosition += _tempVec;
+        // }
     }
 
     public void RotateFurniture(string rotType)
@@ -78,7 +81,7 @@ public class ModelController : MonoBehaviour, IBaseScript {
             x.GetComponent<Transform>().Rotate(_tempVec, _rotateAmount);
         }
     }
-    
+
     public void AddFurnitureToPlane()
     {
         // TO DO: Add ScriptableObject to the arguments.
@@ -101,7 +104,36 @@ public class ModelController : MonoBehaviour, IBaseScript {
         GameObject x = Instantiate(_toilet, transform.position, transform.rotation);
         x.transform.SetParent(_groundPlane);
         _spawnedObjects.Add(x);
-        
 
+        //set our current object as the one just spawned
+        _selectedObject = x;
+
+
+    }
+
+    void SelectObjectCheck()
+    {
+        //checks if the first touch is pointing at an object
+        Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+
+
+            //make the currently selected object the one that was hit
+            _selectedObject = hit.transform.gameObject;
+
+
+
+        }
+
+    }
+
+    //set timer so button presses don't change selected object
+    public void ButtonPressSelectDisable()
+    {
+        _ButtonPressSelectDisable = 1;
     }
 }
