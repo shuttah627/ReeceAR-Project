@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ModelController : MonoBehaviour, IBaseScript {
     public Transform _groundPlane;
     public GameObject _toilet;
     public Camera _arCamera;
+    // TESTING ONLY
+    public Text _testText;
+
 
     [Range(0f, 2f)]
     public float _movementAmount = 0.1f;
@@ -31,7 +35,11 @@ public class ModelController : MonoBehaviour, IBaseScript {
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
             Debug.Log("We touched the screen!");
+            _testText.text = "Touched"; //for android testing
             SelectObjectCheck();
+        } else
+        {
+            _testText.text = "N/A";
         }
     }
 
