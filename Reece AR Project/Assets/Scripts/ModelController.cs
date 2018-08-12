@@ -25,11 +25,10 @@ public class ModelController : MonoBehaviour, IBaseScript {
 
     void Update()
     {
-        //decrease timer
-        _ButtonPressSelectDisable -= Time.deltaTime;
+        
 
 
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && _ButtonPressSelectDisable <= 0)
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
             Debug.Log("We touched the screen!");
             SelectObjectCheck();
@@ -121,9 +120,17 @@ public class ModelController : MonoBehaviour, IBaseScript {
         if (Physics.Raycast(ray, out hit))
         {
 
+            //if trying to select an object check the object is in the list
+            for (int x = 0; x < _spawnedObjects.Count; x++)
+            {
+                if (hit.transform.gameObject == _spawnedObjects[x])
+                {
+                    _selectedObject = hit.transform.gameObject;
+                }
+            }
 
             //make the currently selected object the one that was hit
-            _selectedObject = hit.transform.gameObject;
+            
 
 
 
@@ -131,9 +138,5 @@ public class ModelController : MonoBehaviour, IBaseScript {
 
     }
 
-    //set timer so button presses don't change selected object
-    public void ButtonPressSelectDisable()
-    {
-        _ButtonPressSelectDisable = 1;
-    }
+   
 }
