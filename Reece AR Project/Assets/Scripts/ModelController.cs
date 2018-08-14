@@ -85,7 +85,7 @@ public class ModelController : MonoBehaviour, IBaseScript {
                     _tempVec = new Vector3(0f, 1f, 0f);
                     break;
             }
-            x.GetComponent<Transform>().Rotate(_tempVec, _rotateAmount);
+            _selectedObject.GetComponent<Transform>().Rotate(_tempVec, _rotateAmount);
         }
     }
 
@@ -126,7 +126,7 @@ public class ModelController : MonoBehaviour, IBaseScript {
         {
             if (_selectedObject == _spawnedObjects[x])
             {
-                _spawnedObjects.Remove(x);
+                _spawnedObjects.Remove(_selectedObject);
             }
         }
 
