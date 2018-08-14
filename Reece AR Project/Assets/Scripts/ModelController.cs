@@ -118,6 +118,32 @@ public class ModelController : MonoBehaviour, IBaseScript {
 
     }
 
+    public void RemoveSelectedObject()
+    {
+        
+        //loop through spawned list and delete object entry
+        for (int x = 0; x < _spawnedObjects.Count; x++)
+        {
+            if (_selectedObject == _spawnedObjects[x])
+            {
+                _spawnedObjects.Remove(x);
+            }
+        }
+
+        //remove object from scene
+        Destroy(_selectedObject);
+
+        //select another object from the list
+        for (int x = 0; x < _spawnedObjects.Count; x++)
+        {
+            if (_spawnedObjects[x] != null)
+            {
+                _spawnedObjects[x] = _selectedObject;
+            }
+        }
+
+    }
+
     void SelectObjectCheck()
     {
         //checks if the first touch is pointing at an object
@@ -133,11 +159,12 @@ public class ModelController : MonoBehaviour, IBaseScript {
             {
                 if (hit.transform.gameObject == _spawnedObjects[x])
                 {
+                    //make the currently selected object the one that was hit
                     _selectedObject = hit.transform.gameObject;
                 }
             }
 
-            //make the currently selected object the one that was hit
+            
             
 
 
