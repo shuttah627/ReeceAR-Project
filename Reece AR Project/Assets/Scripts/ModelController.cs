@@ -52,7 +52,7 @@ public class ModelController : MonoBehaviour, IBaseScript {
         {
 
             case "point":
-                _selectedObject.GetComponent<Transform>().localPosition = GameObject.Find("DefaultPlaneIndicator(Clone)").GetComponent<Transform>().localPosition;
+                _selectedObject.GetComponent<Transform>().position = GameObject.Find("DefaultPlaneIndicator(Clone)").GetComponent<Transform>().localPosition;
                 break;
             case "forward":
                 _tempVec = new Vector3(0f, 0f, -_movementAmount);
