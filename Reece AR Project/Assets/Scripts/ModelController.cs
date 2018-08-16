@@ -138,7 +138,7 @@ public class ModelController : MonoBehaviour, IBaseScript {
         {
             if (_spawnedObjects[x] != null)
             {
-                _spawnedObjects[x] = _selectedObject;
+                _selectedObject = _spawnedObjects[x];
             }
         }
 
