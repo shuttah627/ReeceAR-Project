@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class ModelController : MonoBehaviour, IBaseScript {
     public Transform _groundPlane;
@@ -34,9 +35,15 @@ public class ModelController : MonoBehaviour, IBaseScript {
 
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
-            Debug.Log("We touched the screen!");
+            
             _testText.text = "Touched"; //for android testing
-            SelectObjectCheck();
+            //stop selection occuring when ui is pressed
+            if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+                {
+                //ui pressed do nothing
+                Debug.Log("UI pressed");
+                }
+            else{ SelectObjectCheck(); }
         } else
         {
             _testText.text = "N/A";
