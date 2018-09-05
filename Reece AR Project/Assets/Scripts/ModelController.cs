@@ -11,7 +11,6 @@ public class ModelController : MonoBehaviour, IBaseScript {
     // TESTING ONLY
     public Text _testText;
 
-
     [Range(0f, 2f)]
     public float _movementAmount = 0.1f;
 
@@ -22,6 +21,8 @@ public class ModelController : MonoBehaviour, IBaseScript {
     private GameObject _selectedObject;
     private List<GameObject> _spawnedObjects;
     private bool _shouldBreak;
+
+    public List<ScriptableTemplate> _productList = new List<ScriptableTemplate>();
 
     void Start() {
         _spawnedObjects = new List<GameObject>();
