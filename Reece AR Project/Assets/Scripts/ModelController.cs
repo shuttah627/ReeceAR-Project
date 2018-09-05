@@ -97,6 +97,21 @@ public class ModelController : MonoBehaviour, IBaseScript {
         }
     }
 
+    public void SpawnProductViaID(string id)
+    {
+        foreach (ScriptableTemplate x in _productList)
+        {
+            if (x._productCode == id)
+            {
+                GameObject y = Instantiate(x._productModel, transform.position, transform.rotation);
+                y.transform.SetParent(_groundPlane);
+                _spawnedObjects.Add(y);
+                _selectedObject = y;
+                return;
+            }
+        }
+    }
+
     public void AddFurnitureToPlane()
     {
         // TO DO: Add ScriptableObject to the arguments.
