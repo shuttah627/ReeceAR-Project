@@ -4,9 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ModelController : MonoBehaviour, IBaseScript {
+public class ModelController : MonoBehaviour, IBaseScript
+{
     public Transform _groundPlane;
     public GameObject _toilet;
+    public GameObject _marker;
     public Camera _arCamera;
     // TESTING ONLY
     public Text _testText;
@@ -19,33 +21,44 @@ public class ModelController : MonoBehaviour, IBaseScript {
     public float _ButtonPressSelectDisable;
 
     private GameObject _selectedObject;
+    private GameObject _selectedObjectMarker;
     private List<GameObject> _spawnedObjects;
     private bool _shouldBreak;
 
     public List<ScriptableTemplate> _productList = new List<ScriptableTemplate>();
 
-    void Start() {
+    void Start()
+    {
         _spawnedObjects = new List<GameObject>();
+
+        //spawn in marker
+        _selectedObjectMarker = Instantiate(_marker, transform.position, transform.rotation);
+        _selectedObjectMarker.transform.SetParent(_groundPlane);
+
         AddFurnitureToPlane();
+
+
+
     }
 
     void Update()
     {
-        
+
 
 
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
-            
+
             _testText.text = "Touched"; //for android testing
             //stop selection occuring when ui is pressed
             if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
-                {
+            {
                 //ui pressed do nothing
                 Debug.Log("UI pressed");
-                }
-            else{ SelectObjectCheck(); }
-        } else
+            }
+            else { SelectObjectCheck(); }
+        }
+        else
         {
             _testText.text = "N/A";
         }
@@ -138,12 +151,31 @@ public class ModelController : MonoBehaviour, IBaseScript {
         //set our current object as the one just spawned
         _selectedObject = x;
 
+        PositionMarker();
+
 
     }
 
+    public void PositionMarker()
+    {
+    //place selection marker on the object
+        _selectedObjectMarker.transform.position = _selectedObject.transform.position;
+
+        //set new object as parent of marker
+        _selectedObjectMarker.transform.SetParent(_selectedObject.transform);
+
+        //move marker parent
+        _selectedObjectMarker.transform.position = _selectedObject.transform.position;
+
+        //move marker to ground plane
+        Vector3 _currentpos;
+        _currentpos = _selectedObjectMarker.transform.position;
+        _selectedObjectMarker.transform.position = new Vector3(_currentpos.x, -_selectedObject.GetComponent<Renderer>().bounds.size.y , _currentpos.z);
+}
+
     public void RemoveSelectedObject()
     {
-        
+
         //loop through spawned list and delete object entry
         for (int x = 0; x < _spawnedObjects.Count; x++)
         {
@@ -184,11 +216,15 @@ public class ModelController : MonoBehaviour, IBaseScript {
                 {
                     //make the currently selected object the one that was hit
                     _selectedObject = hit.transform.gameObject;
+
+                    //move selection marker
+                    PositionMarker();
+
                 }
             }
 
-            
-            
+
+
 
 
 
@@ -196,5 +232,5 @@ public class ModelController : MonoBehaviour, IBaseScript {
 
     }
 
-   
+
 }
