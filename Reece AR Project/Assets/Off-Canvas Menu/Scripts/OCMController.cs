@@ -15,6 +15,7 @@ public class OCMController : MonoBehaviour
     // Added
     public List<GameObject> panels = new List<GameObject>();
     int panelsCount = 4;
+    bool setA;
 
     private ScrollRect scrollRect;
     private Color transparentColor;
@@ -36,7 +37,15 @@ public class OCMController : MonoBehaviour
     {
         // if not already, activate default panel...
         if (!panels[0].activeInHierarchy)
-            panels[0].SetActive(true); 
+        {
+            setA = true;
+            // dont open two panels at once
+            for (int i = 0; i < panelsCount; i++)
+                if (panels[i].activeInHierarchy)
+                    setA = false;
+            if (setA)
+                panels[0].SetActive(true);
+        }
 
         // open side menu
         StartCoroutine(SlideTo(0, TransitionSpeed));        
@@ -44,6 +53,8 @@ public class OCMController : MonoBehaviour
 
     public void Close()
     {
+        if (panels[1].activeInHierarchy)
+            panels[1].SetActive(false);
         StartCoroutine(SlideTo(1, TransitionSpeed));
         CloseAll(); // close all panels
         panels[0].SetActive(true); // activate catelogories...
