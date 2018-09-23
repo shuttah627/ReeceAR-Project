@@ -248,8 +248,6 @@ public class ModelController : MonoBehaviour, IBaseScript
         GameObject x = Instantiate(_toilet, transform.position, transform.rotation);
         x.transform.SetParent(_groundPlane);
         _spawnedObjects.Add(x);
-
-
         //set our current object as the one just spawned
         _selectedObject = x;
 

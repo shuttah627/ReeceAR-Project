@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +11,6 @@ public class OCMController : MonoBehaviour
     public Color OverlayColor = new Color(0, 0, 0, 0.8f);
     public Image DragHandle;
     public Image TransparentPadding;
-
     private ScrollRect scrollRect;
     private Color transparentColor;
 
@@ -18,7 +18,7 @@ public class OCMController : MonoBehaviour
 	{
         transparentColor = new Color(OverlayColor.r, OverlayColor.g, OverlayColor.b, 0);
         scrollRect = GetComponent<ScrollRect>();
-	}
+    }
 
     void Update()
     {
@@ -29,6 +29,7 @@ public class OCMController : MonoBehaviour
     public void Open()
     {
         StartCoroutine(SlideTo(0, TransitionSpeed));
+
     }
 
     public void Close()
