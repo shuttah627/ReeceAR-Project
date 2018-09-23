@@ -251,8 +251,10 @@ public class ModelController : MonoBehaviour, IBaseScript
         //set our current object as the one just spawned
         _selectedObject = x;
 
-        //add collider to the object for the selection system
+        //add collider to the object for the selection system and resize it
         _selectedObject.AddComponent<BoxCollider>();
+        BoxCollider m_Collider = _selectedObject.GetComponent<BoxCollider>();
+        m_Collider.size = new Vector3(70, 70, 70);
 
         //positon the marker
         PositionMarker();
