@@ -125,6 +125,105 @@ public class ModelController : MonoBehaviour, IBaseScript
         }
     }
 
+    public void PositionMarker()
+    {
+        //set new object as parent of marker
+        _selectedObjectMarker.transform.SetParent(_selectedObject.transform);
+
+        //move marker parent
+        _selectedObjectMarker.transform.position = _selectedObject.transform.position;
+
+        //find lowest point of any child ---- not ideal needs more work as it is the middle of the lowest child
+        float lowest = Mathf.Infinity;
+        for (int i = 0; i < _selectedObject.transform.childCount; i++)
+        {
+            Transform temp = _selectedObject.transform.GetChild(i);
+            Mesh mesh = temp.GetComponent<MeshFilter>().mesh;
+            Vector3[] vertices = mesh.vertices;
+            int x = 0;
+            while (x < vertices.Length)
+            {
+                if (vertices[x].y < lowest) lowest = vertices[x].y;
+                x++;
+            }
+
+        }
+
+        //get values for main object
+        float xmin = 0.0f;
+        float xmax = 0.0f;
+        float zmin = 0.0f;
+        float zmax = 0.0f;
+        for (int i = 0; i < _selectedObject.transform.childCount; i++)
+        {
+            Transform temp = _selectedObject.transform.GetChild(i);
+            Mesh mesh = temp.GetComponent<MeshFilter>().mesh;
+            Vector3[] vertices = mesh.vertices;
+            int x = 0;
+            while (x < vertices.Length)
+            {
+                if (vertices[x].x < xmin) xmin = vertices[x].x; //xmin
+                if (vertices[x].z < zmin) zmin = vertices[x].z; //zmin
+                if (vertices[x].x > xmax) xmax = vertices[x].x; //xmax
+                if (vertices[x].z > zmax) zmax = vertices[x].z; //zmax
+                x++;
+            }
+
+        }
+        /*
+        //scale marker ---- probably a better way to do this
+        bool breakx = true;
+        while (breakx)
+        {
+            
+            float mxmin = 0.0f;
+            float mxmax = 0.0f;
+            float mzmin = 0.0f;
+            float mzmax = 0.0f;
+            
+            //  ------------- currently something in this breaks the location of the marker ----------------
+            for (int i = 1; i < _selectedObjectMarker.transform.childCount; i++)
+            {
+                
+                Transform temp = _selectedObjectMarker.transform.GetChild(i);
+                Mesh mesh = temp.GetComponent<MeshFilter>().mesh;
+                Vector3[] vertices = mesh.vertices;
+                int x = 0;
+                while (x < vertices.Length)
+                {
+                    if (vertices[x].x < mxmin) mxmin = vertices[x].x; //xmin
+                    if (vertices[x].z < mzmin) mzmin = vertices[x].z; //zmin
+                    if (vertices[x].x > mxmax) mxmax = vertices[x].x; //xmax
+                    if (vertices[x].z > mzmax) mzmax = vertices[x].z; //zmax
+                    x++;
+                }
+                
+            }
+           
+            
+            //check if scaled high enough
+            if (mxmax >= xmax || mzmax >= zmax || mxmin <= xmin || mzmin <= zmin)
+            { breakx = false; }
+            //scale more
+            else
+            {
+                _selectedObjectMarker.transform.localScale += new Vector3(0.1F, 0.1f, 0.1f);
+            }
+            
+        }
+        */
+
+
+        //move marker to calculated point
+        Vector3 _currentpos;
+        _currentpos = _selectedObjectMarker.transform.position;
+        _selectedObjectMarker.transform.position = new Vector3(_currentpos.x, lowest, _currentpos.z);
+
+        //remove this when dynamic scaling is done
+        _selectedObjectMarker.transform.localScale += new Vector3(8, 8, 8);
+
+    }
+
     public void AddFurnitureToPlane()
     {
         // TO DO: Add ScriptableObject to the arguments.
@@ -148,30 +247,18 @@ public class ModelController : MonoBehaviour, IBaseScript
         x.transform.SetParent(_groundPlane);
         _spawnedObjects.Add(x);
 
+
         //set our current object as the one just spawned
         _selectedObject = x;
 
+        //add collider to the object for the selection system
+        _selectedObject.AddComponent<BoxCollider>();
+
+        //positon the marker
         PositionMarker();
 
 
     }
-
-    public void PositionMarker()
-    {
-    //place selection marker on the object
-        _selectedObjectMarker.transform.position = _selectedObject.transform.position;
-
-        //set new object as parent of marker
-        _selectedObjectMarker.transform.SetParent(_selectedObject.transform);
-
-        //move marker parent
-        _selectedObjectMarker.transform.position = _selectedObject.transform.position;
-
-        //move marker to ground plane
-        Vector3 _currentpos;
-        _currentpos = _selectedObjectMarker.transform.position;
-        _selectedObjectMarker.transform.position = new Vector3(_currentpos.x, -_selectedObject.GetComponent<Renderer>().bounds.size.y , _currentpos.z);
-}
 
     public void RemoveSelectedObject()
     {
