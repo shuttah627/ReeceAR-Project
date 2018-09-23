@@ -34,9 +34,10 @@ public class ModelController : MonoBehaviour, IBaseScript
         //spawn in marker
         _selectedObjectMarker = Instantiate(_marker, transform.position, transform.rotation);
         _selectedObjectMarker.transform.SetParent(_groundPlane);
+        _selectedObjectMarker.SetActive(false); // TESTING THE SCALE ISSUE. TEMPORARY.
 
-        AddFurnitureToPlane();
-
+        //AddFurnitureToPlane();
+        //SpawnProductViaID("2080660");
 
 
     }
@@ -118,6 +119,7 @@ public class ModelController : MonoBehaviour, IBaseScript
             {
                 GameObject y = Instantiate(x._productModel, transform.position, transform.rotation);
                 y.transform.SetParent(_groundPlane);
+                y.transform.localScale = x._productScale;
                 _spawnedObjects.Add(y);
                 _selectedObject = y;
                 return;
