@@ -24,6 +24,7 @@ public class ModelController : MonoBehaviour, IBaseScript
     private GameObject _selectedObjectMarker;
     private List<GameObject> _spawnedObjects;
     private bool _shouldBreak;
+    private float _markerYPos;
 
     public List<ScriptableTemplate> _productList = new List<ScriptableTemplate>();
 
@@ -62,6 +63,17 @@ public class ModelController : MonoBehaviour, IBaseScript
         else
         {
             _testText.text = "N/A";
+        }
+
+        //move selcetion marker
+        if (_selectedObject != null)
+        {
+
+            _selectedObjectMarker.transform.position = new Vector3(_selectedObject.transform.position.x, _markerYPos, _selectedObject.transform.position.z);
+
+            //make maker visible
+            _selectedObjectMarker.SetActive(true);
+
         }
     }
 
@@ -122,12 +134,21 @@ public class ModelController : MonoBehaviour, IBaseScript
                 y.transform.localScale = x._productScale;
                 _spawnedObjects.Add(y);
                 _selectedObject = y;
+
+                //add collider to the object for the selection system and resize it
+                _selectedObject.AddComponent<BoxCollider>();
+                BoxCollider m_Collider = _selectedObject.GetComponent<BoxCollider>();
+                m_Collider.size = new Vector3(70, 70, 70);
+
+                //position marker
+                _markerYPos = PositionMarker();
+
                 return;
             }
         }
     }
 
-    public void PositionMarker()
+    public float PositionMarker()
     {
         //set new object as parent of marker
         _selectedObjectMarker.transform.SetParent(_selectedObject.transform);
@@ -222,7 +243,9 @@ public class ModelController : MonoBehaviour, IBaseScript
         _selectedObjectMarker.transform.position = new Vector3(_currentpos.x, lowest, _currentpos.z);
 
         //remove this when dynamic scaling is done
-        _selectedObjectMarker.transform.localScale += new Vector3(8, 8, 8);
+        _selectedObjectMarker.transform.localScale = new Vector3 (30,30,30);
+
+        return lowest;
 
     }
 
@@ -257,7 +280,9 @@ public class ModelController : MonoBehaviour, IBaseScript
         m_Collider.size = new Vector3(70, 70, 70);
 
         //positon the marker
-        PositionMarker();
+
+
+       _markerYPos = PositionMarker();
 
 
     }
@@ -307,7 +332,7 @@ public class ModelController : MonoBehaviour, IBaseScript
                     _selectedObject = hit.transform.gameObject;
 
                     //move selection marker
-                    PositionMarker();
+                    _markerYPos = PositionMarker();
 
                 }
             }
