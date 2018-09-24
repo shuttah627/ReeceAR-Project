@@ -9,13 +9,14 @@ public class ItemPage : MonoBehaviour {
     public ScriptableTemplate scriptTemplate;
     public GameObject pagePrefab;
     public GameObject pageParent;
-    public GameObject listBase;
+    public GameObject modelControl;
     public List<GameObject> menuComponents = new List<GameObject>();
     
 
 	// Use this for initialization
 	void Start () {
         ClearItemPage();
+        this.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
     }
 	
 	// Update is called once per frame
@@ -30,10 +31,14 @@ public class ItemPage : MonoBehaviour {
         
         x.transform.SetParent(pageParent.transform);
         //x.GetComponentInChildren<Text>().text = scriptTemplate._productName;
-       // x.transform.Find("img_Item").GetComponentInChildren<Image>().sprite = scriptTemplate._productImage;
+
         pageParent.SetActive(true);
         this.transform.parent.gameObject.transform.parent.gameObject.transform.parent.gameObject.SetActive(false); // there is no god
+        x.transform.Find("btn_Place").GetComponent<Button>().onClick.AddListener(delegate {modelControl.GetComponent<ModelController>().SpawnProductViaID(scriptTemplate._productCode); }); // further proof that there is no god
+        x.transform.Find("Text").GetComponent<Text>().text = string.Format("<b>{0}</b>\n{1}",scriptTemplate._productName, scriptTemplate._productDescription);
+        x.transform.Find("img_Item").transform.Find("itempic").GetComponent<Image>().sprite = scriptTemplate._productImage;
         x.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+
     }
 
     void ClearItemPage()

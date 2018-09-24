@@ -24,6 +24,7 @@ public class ModelController : MonoBehaviour, IBaseScript
     private GameObject _selectedObjectMarker;
     private List<GameObject> _spawnedObjects;
     private bool _shouldBreak;
+    private float _markerYPos;
 
     public List<ScriptableTemplate> _productList = new List<ScriptableTemplate>();
 
@@ -32,9 +33,9 @@ public class ModelController : MonoBehaviour, IBaseScript
         _spawnedObjects = new List<GameObject>();
 
         //spawn in marker
-        _selectedObjectMarker = Instantiate(_marker, transform.position, transform.rotation);
-        _selectedObjectMarker.transform.SetParent(_groundPlane);
-        _selectedObjectMarker.SetActive(false); // TESTING THE SCALE ISSUE. TEMPORARY.
+        //_selectedObjectMarker = Instantiate(_marker, transform.position, transform.rotation);
+        //_selectedObjectMarker.transform.SetParent(_groundPlane);
+        //_selectedObjectMarker.SetActive(false); // TESTING THE SCALE ISSUE. TEMPORARY.
 
         //AddFurnitureToPlane();
         //SpawnProductViaID("2080660");
@@ -63,6 +64,18 @@ public class ModelController : MonoBehaviour, IBaseScript
         {
             _testText.text = "N/A";
         }
+        /*
+        //move selcetion marker
+        if (_selectedObject != null)
+        {
+
+            _selectedObjectMarker.transform.position = new Vector3(_selectedObject.transform.position.x, _markerYPos, _selectedObject.transform.position.z);
+
+            //make maker visible
+            //_selectedObjectMarker.SetActive(true);
+
+        }
+        */
     }
 
     public void MoveFurniture(string moveType)
@@ -74,7 +87,7 @@ public class ModelController : MonoBehaviour, IBaseScript
         {
 
             case "point":
-                _selectedObject.GetComponent<Transform>().position = GameObject.Find("DefaultPlaneIndicator(Clone)").GetComponent<Transform>().localPosition;
+                _selectedObject.GetComponent<Transform>().position = GameObject.Find("DefaultPlaneIndicator - Copy(Clone)").GetComponent<Transform>().localPosition;
                 break;
             case "forward":
                 _tempVec = new Vector3(0f, 0f, -_movementAmount);
@@ -122,18 +135,27 @@ public class ModelController : MonoBehaviour, IBaseScript
                 y.transform.localScale = x._productScale;
                 _spawnedObjects.Add(y);
                 _selectedObject = y;
+
+                //add collider to the object for the selection system and resize it
+                _selectedObject.AddComponent<BoxCollider>();
+                BoxCollider m_Collider = _selectedObject.GetComponent<BoxCollider>();
+                m_Collider.size = new Vector3(70, 70, 70);
+
+                //position marker
+                //_markerYPos = PositionMarker();
+
                 return;
             }
         }
     }
 
-    public void PositionMarker()
+    public float PositionMarker()
     {
         //set new object as parent of marker
         _selectedObjectMarker.transform.SetParent(_selectedObject.transform);
 
         //move marker parent
-        _selectedObjectMarker.transform.position = _selectedObject.transform.position;
+        _selectedObjectMarker.transform.position = new Vector3(0.0f, 0.0f, 0.0f) ;
 
         //find lowest point of any child ---- not ideal needs more work as it is the middle of the lowest child
         float lowest = Mathf.Infinity;
@@ -222,7 +244,9 @@ public class ModelController : MonoBehaviour, IBaseScript
         _selectedObjectMarker.transform.position = new Vector3(_currentpos.x, lowest, _currentpos.z);
 
         //remove this when dynamic scaling is done
-        _selectedObjectMarker.transform.localScale += new Vector3(8, 8, 8);
+        //_selectedObjectMarker.transform.localScale = new Vector3 (30,30,30);
+
+        return lowest;
 
     }
 
@@ -257,7 +281,9 @@ public class ModelController : MonoBehaviour, IBaseScript
         m_Collider.size = new Vector3(70, 70, 70);
 
         //positon the marker
-        PositionMarker();
+
+
+       _markerYPos = PositionMarker();
 
 
     }
@@ -307,7 +333,7 @@ public class ModelController : MonoBehaviour, IBaseScript
                     _selectedObject = hit.transform.gameObject;
 
                     //move selection marker
-                    PositionMarker();
+                    //_markerYPos = PositionMarker();
 
                 }
             }
