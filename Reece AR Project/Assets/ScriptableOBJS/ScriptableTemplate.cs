@@ -12,4 +12,5 @@ public class ScriptableTemplate : ScriptableObject {
     public float _productPrice;
     public string _productCode;
     public Vector3 _productScale;
+    public string _productCategory;
 }

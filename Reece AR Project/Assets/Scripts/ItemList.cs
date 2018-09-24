@@ -1,0 +1,50 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class ItemList : MonoBehaviour
+{
+    public GameObject pageParent;
+    public GameObject listParent;
+    public GameObject tlList;
+    public GameObject listPrefab;
+    public GameObject modelController;
+    // Use this for initialization
+    void Start()
+    {
+        ClearList();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    public void AddToList(string category)
+    {
+        ClearList();
+        foreach (ScriptableTemplate i in modelController.GetComponent<ModelController>()._productList)
+        {
+            if (i._productCategory == category)
+            {
+                GameObject x = Instantiate(listPrefab);
+                x.GetComponentInChildren<ItemPage>().scriptTemplate = i;
+                x.GetComponent<ItemPage>().pageParent = pageParent;
+                x.GetComponentInChildren<Text>().text = string.Format("<b>{0}</b>\n{1,10}", i._productName, i._productPrice);
+                x.transform.SetParent(listParent.transform);
+            }
+        }
+    }
+
+    void ClearList()
+    {
+        foreach (Transform child in listParent.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+    }
+
+    
+}
