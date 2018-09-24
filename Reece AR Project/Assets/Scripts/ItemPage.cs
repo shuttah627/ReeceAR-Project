@@ -25,21 +25,22 @@ public class ItemPage : MonoBehaviour {
 
     public void CreateItemPage()
     {
-
+        ClearItemPage();
         GameObject x = Instantiate(pagePrefab);
-        x.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+        
         x.transform.SetParent(pageParent.transform);
         //x.GetComponentInChildren<Text>().text = scriptTemplate._productName;
        // x.transform.Find("img_Item").GetComponentInChildren<Image>().sprite = scriptTemplate._productImage;
         pageParent.SetActive(true);
         this.transform.parent.gameObject.transform.parent.gameObject.transform.parent.gameObject.SetActive(false); // there is no god
+        x.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
     }
 
     void ClearItemPage()
     {
         foreach (Transform child in pageParent.transform)
         {
-            if(child.name == "item_selected")
+            if(child.name == "item_selected(Clone)")
             {
                 GameObject.Destroy(child.gameObject);
             }
