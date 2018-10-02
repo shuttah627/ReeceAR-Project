@@ -64,18 +64,7 @@ public class ModelController : MonoBehaviour, IBaseScript
         {
             _testText.text = "N/A";
         }
-        /*
-        //move selcetion marker
-        if (_selectedObject != null)
-        {
-
-            _selectedObjectMarker.transform.position = new Vector3(_selectedObject.transform.position.x, _markerYPos, _selectedObject.transform.position.z);
-
-            //make maker visible
-            //_selectedObjectMarker.SetActive(true);
-
-        }
-        */
+        
     }
 
     public void MoveFurniture(string moveType)
@@ -136,20 +125,16 @@ public class ModelController : MonoBehaviour, IBaseScript
                 _spawnedObjects.Add(y);
                 _selectedObject = y;
 
-                //add collider to the object for the selection system and resize it
-                _selectedObject.AddComponent<BoxCollider>();
-                BoxCollider m_Collider = _selectedObject.GetComponent<BoxCollider>();
-                m_Collider.size = new Vector3(70, 70, 70);
-
-                //position marker
-                //_markerYPos = PositionMarker();
+                //position the marker
+                PositionMarker();
+                
 
                 return;
             }
         }
     }
 
-    public float PositionMarker()
+    public void PositionMarker()
     {
         //set new object as parent of marker
         _selectedObjectMarker.transform.SetParent(_selectedObject.transform);
@@ -157,96 +142,18 @@ public class ModelController : MonoBehaviour, IBaseScript
         //move marker parent
         _selectedObjectMarker.transform.position = new Vector3(0.0f, 0.0f, 0.0f) ;
 
-        //find lowest point of any child ---- not ideal needs more work as it is the middle of the lowest child
-        float lowest = Mathf.Infinity;
-        for (int i = 0; i < _selectedObject.transform.childCount; i++)
-        {
-            Transform temp = _selectedObject.transform.GetChild(i);
-            Mesh mesh = temp.GetComponent<MeshFilter>().mesh;
-            Vector3[] vertices = mesh.vertices;
-            int x = 0;
-            while (x < vertices.Length)
-            {
-                if (vertices[x].y < lowest) lowest = vertices[x].y;
-                x++;
-            }
-
-        }
-
-        //get values for main object
-        float xmin = 0.0f;
-        float xmax = 0.0f;
-        float zmin = 0.0f;
-        float zmax = 0.0f;
-        for (int i = 0; i < _selectedObject.transform.childCount; i++)
-        {
-            Transform temp = _selectedObject.transform.GetChild(i);
-            Mesh mesh = temp.GetComponent<MeshFilter>().mesh;
-            Vector3[] vertices = mesh.vertices;
-            int x = 0;
-            while (x < vertices.Length)
-            {
-                if (vertices[x].x < xmin) xmin = vertices[x].x; //xmin
-                if (vertices[x].z < zmin) zmin = vertices[x].z; //zmin
-                if (vertices[x].x > xmax) xmax = vertices[x].x; //xmax
-                if (vertices[x].z > zmax) zmax = vertices[x].z; //zmax
-                x++;
-            }
-
-        }
-        /*
-        //scale marker ---- probably a better way to do this
-        bool breakx = true;
-        while (breakx)
-        {
-            
-            float mxmin = 0.0f;
-            float mxmax = 0.0f;
-            float mzmin = 0.0f;
-            float mzmax = 0.0f;
-            
-            //  ------------- currently something in this breaks the location of the marker ----------------
-            for (int i = 1; i < _selectedObjectMarker.transform.childCount; i++)
-            {
-                
-                Transform temp = _selectedObjectMarker.transform.GetChild(i);
-                Mesh mesh = temp.GetComponent<MeshFilter>().mesh;
-                Vector3[] vertices = mesh.vertices;
-                int x = 0;
-                while (x < vertices.Length)
-                {
-                    if (vertices[x].x < mxmin) mxmin = vertices[x].x; //xmin
-                    if (vertices[x].z < mzmin) mzmin = vertices[x].z; //zmin
-                    if (vertices[x].x > mxmax) mxmax = vertices[x].x; //xmax
-                    if (vertices[x].z > mzmax) mzmax = vertices[x].z; //zmax
-                    x++;
-                }
-                
-            }
-           
-            
-            //check if scaled high enough
-            if (mxmax >= xmax || mzmax >= zmax || mxmin <= xmin || mzmin <= zmin)
-            { breakx = false; }
-            //scale more
-            else
-            {
-                _selectedObjectMarker.transform.localScale += new Vector3(0.1F, 0.1f, 0.1f);
-            }
-            
-        }
-        */
-
+        //get collider and lowest point
+        Collider m_Collider = GetComponent<Collider>();
+        float lowest = m_Collider.bounds.min.y;
 
         //move marker to calculated point
         Vector3 _currentpos;
         _currentpos = _selectedObjectMarker.transform.position;
         _selectedObjectMarker.transform.position = new Vector3(_currentpos.x, lowest, _currentpos.z);
 
-        //remove this when dynamic scaling is done
-        //_selectedObjectMarker.transform.localScale = new Vector3 (30,30,30);
+        
 
-        return lowest;
+        
 
     }
 
@@ -275,15 +182,9 @@ public class ModelController : MonoBehaviour, IBaseScript
         //set our current object as the one just spawned
         _selectedObject = x;
 
-        //add collider to the object for the selection system and resize it
-        _selectedObject.AddComponent<BoxCollider>();
-        BoxCollider m_Collider = _selectedObject.GetComponent<BoxCollider>();
-        m_Collider.size = new Vector3(70, 70, 70);
 
-        //positon the marker
-
-
-       _markerYPos = PositionMarker();
+       //positon the marker
+       PositionMarker();
 
 
     }
@@ -333,7 +234,7 @@ public class ModelController : MonoBehaviour, IBaseScript
                     _selectedObject = hit.transform.gameObject;
 
                     //move selection marker
-                    //_markerYPos = PositionMarker();
+                    PositionMarker();
 
                 }
             }
