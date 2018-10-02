@@ -11,6 +11,8 @@ public class OCMController : MonoBehaviour
     public Color OverlayColor = new Color(0, 0, 0, 0.8f);
     public Image DragHandle;
     public Image TransparentPadding;
+    public GameObject uiController; //
+
 
     // Added
     public List<GameObject> panels = new List<GameObject>();
@@ -47,6 +49,11 @@ public class OCMController : MonoBehaviour
                 panels[0].SetActive(true);
         }
 
+        // Deactiveate ui controller whilst menu is open
+        for (int i = 0; i < panelsCount; i++)
+            if (panels[i].activeInHierarchy)
+                uiController.SetActive(false);
+
         // open side menu
         StartCoroutine(SlideTo(0, TransitionSpeed));        
     }
@@ -58,6 +65,7 @@ public class OCMController : MonoBehaviour
         StartCoroutine(SlideTo(1, TransitionSpeed));
         CloseAll(); // close all panels
         panels[0].SetActive(true); // activate catelogories...
+        uiController.SetActive(true); // activate UI controller when the menu is closed
     }
 
     // Close all

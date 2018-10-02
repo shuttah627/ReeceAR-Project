@@ -11,6 +11,7 @@ public class ItemPage : MonoBehaviour {
     public GameObject pageParent;
     public GameObject modelControl;
     public List<GameObject> menuComponents = new List<GameObject>();
+    public GameObject menuContainer; // menu container
     
 
 	// Use this for initialization
@@ -34,11 +35,20 @@ public class ItemPage : MonoBehaviour {
 
         pageParent.SetActive(true);
         this.transform.parent.gameObject.transform.parent.gameObject.transform.parent.gameObject.SetActive(false); // there is no god
-        x.transform.Find("btn_Place").GetComponent<Button>().onClick.AddListener(delegate {modelControl.GetComponent<ModelController>().SpawnProductViaID(scriptTemplate._productCode); }); // further proof that there is no god
+        x.transform.Find("btn_Place").GetComponent<Button>().onClick.AddListener(delegate { place(); }); // further proof that there is no god
+        // ******** ^^^^
+
         x.transform.Find("Text").GetComponent<Text>().text = string.Format("<b>{0}</b>\n{1}",scriptTemplate._productName, scriptTemplate._productDescription);
         x.transform.Find("img_Item").transform.Find("itempic").GetComponent<Image>().sprite = scriptTemplate._productImage;
         x.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
+    }
+
+    // place item button script
+    void place()
+    {
+        modelControl.GetComponent<ModelController>().SpawnProductViaID(scriptTemplate._productCode);
+        menuContainer.GetComponent<OCMController>().Close();
     }
 
     void ClearItemPage()
