@@ -33,9 +33,9 @@ public class ModelController : MonoBehaviour, IBaseScript
         _spawnedObjects = new List<GameObject>();
 
         //spawn in marker
-        //_selectedObjectMarker = Instantiate(_marker, transform.position, transform.rotation);
-        //_selectedObjectMarker.transform.SetParent(_groundPlane);
-        //_selectedObjectMarker.SetActive(false); // TESTING THE SCALE ISSUE. TEMPORARY.
+        _selectedObjectMarker = Instantiate(_marker, transform.position, transform.rotation);
+        _selectedObjectMarker.transform.SetParent(_groundPlane);
+        _selectedObjectMarker.SetActive(true);
 
         //AddFurnitureToPlane();
         //SpawnProductViaID("2080660");
@@ -46,11 +46,11 @@ public class ModelController : MonoBehaviour, IBaseScript
     void Update()
     {
 
+        //Debug.Log("update detected");
 
-
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began) 
         {
-
+            Debug.Log("touch detected");
             _testText.text = "Touched"; //for android testing
             //stop selection occuring when ui is pressed
             if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
@@ -58,7 +58,20 @@ public class ModelController : MonoBehaviour, IBaseScript
                 //ui pressed do nothing
                 Debug.Log("UI pressed");
             }
-            else { SelectObjectCheck(); }
+            else { SelectObjectCheck(); Debug.Log("entering check"); }
+        }
+        //check if mouse input
+        else if(Input.GetMouseButtonDown(0))
+        {
+            Debug.Log("touch detected");
+            _testText.text = "Touched"; //for android testing
+            //stop selection occuring when ui is pressed
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                //ui pressed do nothing
+                Debug.Log("UI pressed");
+            }
+            else { SelectObjectCheckMouse(); Debug.Log("entering check"); }
         }
         else
         {
@@ -140,16 +153,16 @@ public class ModelController : MonoBehaviour, IBaseScript
         _selectedObjectMarker.transform.SetParent(_selectedObject.transform);
 
         //move marker parent
-        _selectedObjectMarker.transform.position = new Vector3(0.0f, 0.0f, 0.0f) ;
+        _selectedObjectMarker.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f) ;
 
         //get collider and lowest point
-        Collider m_Collider = GetComponent<Collider>();
+        Collider m_Collider = _selectedObject.GetComponent<BoxCollider>();
         float lowest = m_Collider.bounds.min.y;
 
         //move marker to calculated point
         Vector3 _currentpos;
         _currentpos = _selectedObjectMarker.transform.position;
-        _selectedObjectMarker.transform.position = new Vector3(_currentpos.x, lowest, _currentpos.z);
+        _selectedObjectMarker.transform.localPosition = new Vector3(_currentpos.x, lowest, _currentpos.z);
 
         
 
@@ -238,15 +251,36 @@ public class ModelController : MonoBehaviour, IBaseScript
 
                 }
             }
-
-
-
-
-
-
         }
 
     }
 
+    //same function as above but handles mouse inputs
+    void SelectObjectCheckMouse()
+    {
+        //checks if the first touch is pointing at an object
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+
+            //if trying to select an object check the object is in the list
+            for (int x = 0; x < _spawnedObjects.Count; x++)
+            {
+                if (hit.transform.gameObject == _spawnedObjects[x])
+                {
+                    //make the currently selected object the one that was hit
+                    _selectedObject = hit.transform.gameObject;
+
+                    //move selection marker
+                    PositionMarker();
+
+                }
+            }
+        }
+
+    }
 
 }

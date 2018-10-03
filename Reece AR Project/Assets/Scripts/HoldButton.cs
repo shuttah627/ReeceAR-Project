@@ -17,17 +17,14 @@ public class HoldButton : MonoBehaviour {
 		if (_pressedDownMove)
         {
             _modelController.GetComponent<ModelController>().MoveFurniture("point");
-            Debug.Log("move pressed");
         }
         if (_pressedDownLeft)
         {
             _modelController.GetComponent<ModelController>().RotateFurniture("left");
-            Debug.Log("left pressed");
         }
         if (_pressedDownRight)
         {
             _modelController.GetComponent<ModelController>().RotateFurniture("right");
-            Debug.Log("right pressed");
         }
     }
 
