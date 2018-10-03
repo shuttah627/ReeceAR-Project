@@ -214,8 +214,9 @@ public class ModelController : MonoBehaviour, IBaseScript
             }
         }
 
-        //remove object from scene
-        Destroy(_selectedObject);
+        //make a temp pointer for the old selected object, this prevents the marker acidently being deleted
+        GameObject _toDel = _selectedObject;
+        
 
         //select another object from the list
         for (int x = 0; x < _spawnedObjects.Count; x++)
@@ -225,6 +226,12 @@ public class ModelController : MonoBehaviour, IBaseScript
                 _selectedObject = _spawnedObjects[x];
             }
         }
+
+        //move the marker
+        PositionMarker();
+
+        //remove object from scene
+        Destroy(_toDel);
 
     }
 
