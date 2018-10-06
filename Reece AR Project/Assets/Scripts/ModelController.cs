@@ -173,6 +173,7 @@ public class ModelController : MonoBehaviour, IBaseScript
             Vector3 _currentpos;
             _currentpos = _selectedObjectMarker.transform.position;
             _selectedObjectMarker.transform.localPosition = new Vector3(_currentpos.x, lowest, _currentpos.z);
+            _selectedObjectMarker.transform.localScale = _selectedObject.GetComponent<SelectionScale>().scalar;
         }
         //if no selcted object move marker away
         else { MoveMarkerOffScreen(); }

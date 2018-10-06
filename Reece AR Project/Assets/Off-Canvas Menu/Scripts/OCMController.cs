@@ -11,7 +11,8 @@ public class OCMController : MonoBehaviour
     public Color OverlayColor = new Color(0, 0, 0, 0.8f);
     public Image DragHandle;
     public Image TransparentPadding;
-    public GameObject uiController; //
+    public GameObject uiController;
+    public GameObject dragIndi;
 
 
     // Added
@@ -37,6 +38,7 @@ public class OCMController : MonoBehaviour
     
     public void Open()
     {
+        Destroy(dragIndi);
         // if not already, activate default panel...
         if (!panels[0].activeInHierarchy)
         {
