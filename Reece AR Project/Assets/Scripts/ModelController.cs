@@ -149,24 +149,33 @@ public class ModelController : MonoBehaviour, IBaseScript
         }
     }
 
+    public void MoveMarkerOffScreen()
+    {
+        _selectedObjectMarker.transform.SetParent(_groundPlane);
+        _selectedObjectMarker.transform.position = new Vector3(99, 99, 99);
+    }
+
     public void PositionMarker()
     {
-        //set new object as parent of marker
-        _selectedObjectMarker.transform.SetParent(_selectedObject.transform);
+        if (_selectedObject != null)
+        {
+            //set new object as parent of marker
+            _selectedObjectMarker.transform.SetParent(_selectedObject.transform);
 
-        //move marker parent
-        _selectedObjectMarker.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f) ;
+            //move marker parent
+            _selectedObjectMarker.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
 
-        //get collider and lowest point
-        Collider m_Collider = _selectedObject.GetComponent<BoxCollider>();
-        float lowest = m_Collider.bounds.min.y;
+            //get collider and lowest point
+            Collider m_Collider = _selectedObject.GetComponent<BoxCollider>();
+            float lowest = m_Collider.bounds.min.y;
 
-        //move marker to calculated point
-        Vector3 _currentpos;
-        _currentpos = _selectedObjectMarker.transform.position;
-        _selectedObjectMarker.transform.localPosition = new Vector3(_currentpos.x, lowest, _currentpos.z);
-
-        
+            //move marker to calculated point
+            Vector3 _currentpos;
+            _currentpos = _selectedObjectMarker.transform.position;
+            _selectedObjectMarker.transform.localPosition = new Vector3(_currentpos.x, lowest, _currentpos.z);
+        }
+        //if no selcted object move marker away
+        else { MoveMarkerOffScreen(); }
 
         
 
@@ -218,15 +227,17 @@ public class ModelController : MonoBehaviour, IBaseScript
 
         //make a temp pointer for the old selected object, this prevents the marker acidently being deleted
         GameObject _toDel = _selectedObject;
-        
 
-        //select another object from the list
+        _selectedObject = null;
+
+        //select another object from the list, if none avalible set null
         for (int x = 0; x < _spawnedObjects.Count; x++)
         {
             if (_spawnedObjects[x] != null)
             {
                 _selectedObject = _spawnedObjects[x];
             }
+            
         }
 
         //move the marker
@@ -239,6 +250,9 @@ public class ModelController : MonoBehaviour, IBaseScript
 
     void SelectObjectCheck()
     {
+        //move marker off screen incase no object is selected
+        MoveMarkerOffScreen();
+
         //checks if the first touch is pointing at an object
         Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
 
@@ -259,14 +273,20 @@ public class ModelController : MonoBehaviour, IBaseScript
                     PositionMarker();
 
                 }
+                else { MoveMarkerOffScreen(); }
             }
+            
         }
+        else { MoveMarkerOffScreen(); }
 
     }
 
-    //same function as above but handles mouse inputs
+    //same function as above but handles mouse inputs (for testing in unity)
     void SelectObjectCheckMouse()
     {
+        //move marker off screen incase no object is selected
+        MoveMarkerOffScreen();
+
         //checks if the first touch is pointing at an object
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
