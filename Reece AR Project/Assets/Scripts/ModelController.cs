@@ -139,6 +139,7 @@ public class ModelController : MonoBehaviour, IBaseScript
                 y.transform.localScale = x._productScale;
                 _spawnedObjects.Add(y);
                 _selectedObject = y;
+                //_selectedObjectMarker.transform.localScale = x._selectionScale;
 
                 //position the marker
                 PositionMarker();
@@ -151,6 +152,8 @@ public class ModelController : MonoBehaviour, IBaseScript
 
     public void PositionMarker()
     {
+
+
         //set new object as parent of marker
         _selectedObjectMarker.transform.SetParent(_selectedObject.transform);
 
@@ -166,10 +169,10 @@ public class ModelController : MonoBehaviour, IBaseScript
         _currentpos = _selectedObjectMarker.transform.position;
         _selectedObjectMarker.transform.localPosition = new Vector3(_currentpos.x, lowest, _currentpos.z);
 
-        
 
-        
 
+
+        _selectedObjectMarker.transform.localScale = _selectedObject.GetComponent<SelectionScale>().scalar;
     }
 
     public void AddFurnitureToPlane()
@@ -261,6 +264,11 @@ public class ModelController : MonoBehaviour, IBaseScript
                 }
             }
         }
+
+    }
+
+    void ScaleObjectMarker()
+    {
 
     }
 
