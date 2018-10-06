@@ -32,7 +32,7 @@ public class OCMController : MonoBehaviour
 
     void Update()
     {
-        DragHandle.color = Color.Lerp(transparentColor, OverlayColor, 1 - scrollRect.horizontalNormalizedPosition);
+       // DragHandle.color = Color.Lerp(transparentColor, OverlayColor, 1 - scrollRect.horizontalNormalizedPosition);
         TransparentPadding.color = Color.Lerp(transparentColor, OverlayColor, 1 - scrollRect.horizontalNormalizedPosition);
     }
     
