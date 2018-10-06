@@ -20,6 +20,8 @@ public class ModelController : MonoBehaviour, IBaseScript
 
     public float _ButtonPressSelectDisable;
 
+    public bool _UiButtonPressed;
+
     private GameObject _selectedObject;
     private GameObject _selectedObjectMarker;
     private List<GameObject> _spawnedObjects;
@@ -36,6 +38,8 @@ public class ModelController : MonoBehaviour, IBaseScript
         _selectedObjectMarker = Instantiate(_marker, transform.position, transform.rotation);
         _selectedObjectMarker.transform.SetParent(_groundPlane);
         _selectedObjectMarker.SetActive(true);
+
+        _UiButtonPressed = false;
 
         //AddFurnitureToPlane();
         //SpawnProductViaID("2080660");
@@ -251,64 +255,69 @@ public class ModelController : MonoBehaviour, IBaseScript
 
     void SelectObjectCheck()
     {
-        //move marker off screen incase no object is selected
-        MoveMarkerOffScreen();
+        
 
         //checks if the first touch is pointing at an object
         Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
 
         RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
+        if (_UiButtonPressed == false)
         {
-
-            //if trying to select an object check the object is in the list
-            for (int x = 0; x < _spawnedObjects.Count; x++)
-            {
-                if (hit.transform.gameObject == _spawnedObjects[x])
-                {
-                    //make the currently selected object the one that was hit
-                    _selectedObject = hit.transform.gameObject;
-
-                    //move selection marker
-                    PositionMarker();
-
-                }
-                else { MoveMarkerOffScreen(); }
-            }
             
+            if (Physics.Raycast(ray, out hit))
+            {
+
+                //if trying to select an object check the object is in the list
+                for (int x = 0; x < _spawnedObjects.Count; x++)
+                {
+                    if (hit.transform.gameObject == _spawnedObjects[x])
+                    {
+                        //make the currently selected object the one that was hit
+                        _selectedObject = hit.transform.gameObject;
+
+                        //move selection marker
+                        PositionMarker();
+                        break;
+                    }
+                    else { MoveMarkerOffScreen(); }
+                }
+
+            }
+            else { MoveMarkerOffScreen(); }
         }
-        else { MoveMarkerOffScreen(); }
 
     }
 
     //same function as above but handles mouse inputs (for testing in unity)
     void SelectObjectCheckMouse()
     {
-        //move marker off screen incase no object is selected
-        MoveMarkerOffScreen();
+       
 
         //checks if the first touch is pointing at an object
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
+        if (_UiButtonPressed == false)
         {
-
-            //if trying to select an object check the object is in the list
-            for (int x = 0; x < _spawnedObjects.Count; x++)
+            if (Physics.Raycast(ray, out hit))
             {
-                if (hit.transform.gameObject == _spawnedObjects[x])
+
+                //if trying to select an object check the object is in the list
+                for (int x = 0; x < _spawnedObjects.Count; x++)
                 {
-                    //make the currently selected object the one that was hit
-                    _selectedObject = hit.transform.gameObject;
+                    if (hit.transform.gameObject == _spawnedObjects[x])
+                    {
+                        //make the currently selected object the one that was hit
+                        _selectedObject = hit.transform.gameObject;
 
-                    //move selection marker
-                    PositionMarker();
-
+                        //move selection marker
+                        PositionMarker();
+                        break;
+                    }
+                    else { MoveMarkerOffScreen(); }
                 }
             }
+            else { MoveMarkerOffScreen(); }
         }
 
     }

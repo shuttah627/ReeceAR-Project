@@ -28,33 +28,49 @@ public class HoldButton : MonoBehaviour {
         }
     }
 
+    public void StopSelectionSystem()
+    {
+        _modelController.GetComponent<ModelController>()._UiButtonPressed = true;
+    }
+    public void StartSelectionSystem()
+    {
+        _modelController.GetComponent<ModelController>()._UiButtonPressed = false;
+    }
+
     public void OnPressMove()
     {
         _pressedDownMove = true;
+        StopSelectionSystem();
     }
 
     public void OnReleaseMove()
     {
         _pressedDownMove = false;
+        StartSelectionSystem();
     }
 
     public void OnPressLeft()
     {
         _pressedDownLeft = true;
+        StopSelectionSystem();
     }
 
     public void OnReleaseLeft()
     {
         _pressedDownLeft = false;
+        StartSelectionSystem();
+
     }
 
     public void OnPressRight()
     {
         _pressedDownRight = true;
+        StopSelectionSystem();
     }
 
     public void OnReleaseRight()
     {
         _pressedDownRight = false;
+        StartSelectionSystem();
     }
 }
