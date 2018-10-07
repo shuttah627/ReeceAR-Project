@@ -54,28 +54,28 @@ public class ModelController : MonoBehaviour, IBaseScript
 
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began) 
         {
-            Debug.Log("touch detected");
+            //Debug.Log("touch detected");
             _testText.text = "Touched"; //for android testing
             //stop selection occuring when ui is pressed
             if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) && EventSystem.current.CompareTag("selectionIgnore") != true)
             {
                 //ui pressed do nothing
-                Debug.Log("pressed: " + EventSystem.current.CompareTag("selectionIgnore"));
-                Debug.Log("UI pressed");
+                //Debug.Log("pressed: " + EventSystem.current.CompareTag("selectionIgnore"));
+                //Debug.Log("UI pressed");
             }
             else { SelectObjectCheck(); Debug.Log("entering check"); }
         }
         //check if mouse input
         else if(Input.GetMouseButtonDown(0) )
         {
-            Debug.Log("touch detected");
+            //Debug.Log("touch detected");
             _testText.text = "Touched"; //for android testing
             //stop selection occuring when ui is pressed
             if (EventSystem.current.IsPointerOverGameObject() && EventSystem.current.CompareTag("selectionIgnore") != true)
             {
                 //ui pressed do nothing
-                Debug.Log("pressed: " + EventSystem.current.name );
-                Debug.Log("UI pressed");
+                //Debug.Log("pressed: " + EventSystem.current.name );
+               // Debug.Log("UI pressed");
             }
             else { SelectObjectCheckMouse(); Debug.Log("entering check"); }
         }
