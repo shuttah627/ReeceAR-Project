@@ -9,6 +9,7 @@ public class ItemPage : MonoBehaviour {
     public ScriptableTemplate scriptTemplate;
     public GameObject pagePrefab;
     public GameObject pageParent;
+    public GameObject callingObj;
     public GameObject modelControl;
     public List<GameObject> menuComponents = new List<GameObject>();
     public GameObject menuContainer; // menu container
@@ -36,6 +37,7 @@ public class ItemPage : MonoBehaviour {
         pageParent.SetActive(true);
         this.transform.parent.gameObject.transform.parent.gameObject.transform.parent.gameObject.SetActive(false); // there is no god
         x.transform.Find("btn_Place").GetComponent<Button>().onClick.AddListener(delegate { place(); }); // further proof that there is no god
+        x.transform.Find("btn_back").GetComponent<Button>().onClick.AddListener(delegate { BackButton(); }); // further proof that there is no god
         // ******** ^^^^
 
         x.transform.Find("Text").GetComponent<Text>().text = string.Format("<b>{0}</b>\n{1}",scriptTemplate._productName, scriptTemplate._productDescription);
@@ -60,5 +62,10 @@ public class ItemPage : MonoBehaviour {
                 GameObject.Destroy(child.gameObject);
             }
         }
+    }
+
+    void BackButton()
+    {
+        //callingObj.transform.parent.gameObject.SetActive(false);
     }
 }

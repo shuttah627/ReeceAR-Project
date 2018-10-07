@@ -63,7 +63,7 @@ public class ModelController : MonoBehaviour, IBaseScript
                 //Debug.Log("pressed: " + EventSystem.current.CompareTag("selectionIgnore"));
                 //Debug.Log("UI pressed");
             }
-            else { SelectObjectCheck(); Debug.Log("entering check"); }
+            else { SelectObjectCheck(); }
         }
         //check if mouse input
         else if(Input.GetMouseButtonDown(0) )
@@ -77,7 +77,7 @@ public class ModelController : MonoBehaviour, IBaseScript
                 //Debug.Log("pressed: " + EventSystem.current.name );
                // Debug.Log("UI pressed");
             }
-            else { SelectObjectCheckMouse(); Debug.Log("entering check"); }
+            else { SelectObjectCheckMouse(); }
         }
         else
         {
@@ -95,9 +95,9 @@ public class ModelController : MonoBehaviour, IBaseScript
         {
 
             case "point":
-                _selectedObject.GetComponent<Transform>().position = GameObject.Find("DefaultPlaneIndicator - Copy(Clone)").GetComponent<Transform>().localPosition;
+                _selectedObject.GetComponent<Transform>().position = GameObject.Find("DefaultPlaneIndicator - Copy(Clone)").GetComponent<Transform>().localPosition + _selectedObject.GetComponent<SelectionScale>().planeOffset;
                 //offest to make object line up on plane
-                _selectedObject.GetComponent<Transform>().position = new Vector3(_selectedObject.GetComponent<Transform>().position.x, _selectedObject.GetComponent<SelectionScale>().planeOffset.y, _selectedObject.GetComponent<Transform>().position.z);
+                //_selectedObject.GetComponent<Transform>().position = new Vector3(_selectedObject.GetComponent<Transform>().position.x, _selectedObject.GetComponent<SelectionScale>().planeOffset.y, _selectedObject.GetComponent<Transform>().position.z);
                 break;
             case "forward":
                 _tempVec = new Vector3(0f, 0f, -_movementAmount);
