@@ -96,6 +96,8 @@ public class ModelController : MonoBehaviour, IBaseScript
 
             case "point":
                 _selectedObject.GetComponent<Transform>().position = GameObject.Find("DefaultPlaneIndicator - Copy(Clone)").GetComponent<Transform>().localPosition;
+                //offest to make object line up on plane
+                _selectedObject.GetComponent<Transform>().position = new Vector3(_selectedObject.GetComponent<Transform>().position.x, _selectedObject.GetComponent<SelectionScale>().planeOffset.y, _selectedObject.GetComponent<Transform>().position.z);
                 break;
             case "forward":
                 _tempVec = new Vector3(0f, 0f, -_movementAmount);
